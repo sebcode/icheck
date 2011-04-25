@@ -1,7 +1,7 @@
 icheck is a command line tool to recursively compute md5 sums for the current
 directory. works a bit like md5deep but is more straightforward to use.
 
-to compute md5 sums for the current directory put icheck.php in your $PATH
+to compute md5 sums for the current directory put icheck in your $PATH
 and type:
 
   icheck create
