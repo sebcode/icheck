@@ -1,0 +1,22 @@
+icheck is a command line tool to recursively compute md5 sums for the current
+directory. works a bit like md5deep but is more straightforward to use.
+
+to compute md5 sums for the current directory put icheck.php in your $PATH
+and type:
+
+  icheck create
+
+this will create the file md5sums with all filename/sum pairs in it. to check 
+a directory which contains a md5sums file type:
+
+  icheck check
+
+the check command will report missing and broken files. md5sums-files
+in subdirectories will be considered.
+
+
+
+requirements: php 5.2+
+
+written by sebastian volland
+
