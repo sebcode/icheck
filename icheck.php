@@ -3,7 +3,11 @@
 
 class iCheck
 {
+	/* sums filename created by create command */
 	protected static $SUMSFILENAME = 'md5sums';
+
+	/* sums files pattern used by check command */
+	protected static $SUMSFILENAME_PATTERN = 'md5sums*';
 
 	protected $baseDir = '';
 	protected $fileList = array();
@@ -54,7 +58,7 @@ class iCheck
 		$err = 0;
 
 		foreach ($this->fileList as $file) {
-			if ($file == self::$SUMSFILENAME) {
+			if ($this->isSumsFilename($file)) {
 				continue;
 			}
 
@@ -74,7 +78,7 @@ class iCheck
 		foreach ($this->fileList as $file) {
 			echo "$file...";
 
-			if ($file == self::$SUMSFILENAME) {
+			if ($this->isSumsFilename($file)) {
 				echo "skip\n";
 				continue;
 			}
@@ -109,6 +113,17 @@ class iCheck
 		}
 	}
 
+	private function isSumsFilename($file)
+	{
+		$file = basename($file);
+
+		if (fnmatch(self::$SUMSFILENAME_PATTERN, $file)) {
+			return true;
+		}
+
+		return false;
+	}
+
 	public function create()
 	{
 		if (file_exists($this->baseDir . self::$SUMSFILENAME)) {
@@ -141,7 +156,7 @@ class iCheck
 		
 		if (is_dir($path) && ($d = dir($path))) {
 			while (($file = $d->read()) !== false) {
-				if (basename($file) == self::$SUMSFILENAME) {
+				if ($this->isSumsFilename($file)) {
 					$this->sumFiles[] = $path . $file;
 					continue;
 				}
